@@ -186,30 +186,26 @@ ludus:
       ludus_domain_join_password: 'password'
       # Only define ludus_sccm_win11_iso_path if you are not using `local` as your ISO storage pool!
       ludus_sccm_win11_iso_path: '/full/path/on/Ludus_host/to/22621.525.220925-0207.ni_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso'
-
+```
 Then set the config and deploy it
 
 ```
 ludus range config set -f sccm-range-config.yml
 ludus range deploy
 ```
-
 ## Building the Collection from Source
-
 ```
 git clone https://github.com/Synzack/ludus_sccm
 ansible-galaxy collection build
 ```
-
 ### Ludus Install of manually built collection
 
-via Ludus ansible collection
+#### via Ludus ansible collection
 ```
 python3 -m http.server 80
 ludus ansible collection add http://<network ip>/synzack-ludus_sccm-1.0.0.tar.gz
 ```
-
-via scp
+#### via scp
 ```
 export LUDUS_USER_NAME=$(ludus user list --json | jq -r '.[].proxmoxUsername')
 ssh root@<ludus-host> "mkdir -r /opt/ludus/users/$LUDUS_USER_NAME/.ansible/collections/ansible_collections/synzack/ludus_sccm"
